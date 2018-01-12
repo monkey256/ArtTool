@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="artool.layouts.AtlasMain"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:el="clr-namespace:artool.layouts"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="500"
+             Background="#E4E4E4">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" BorderThickness="1" BorderBrush="Gray" 
+                CornerRadius="5" Margin="5" Background="#80FFFFFF">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="36"/>
+                    <RowDefinition Height="36"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="Gray">
+                    <Grid>
+                        <TextBlock Text="请将要合成的图片拖动到此位置，或使用右边按钮来选择源图片。" 
+                                   HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Margin="10,0,0,0" FontSize="12"/>
+                        <Button Content="选择图片..." Width="100" Height="22"
+                                HorizontalAlignment="Right" VerticalAlignment="Center"
+                                Margin="0,0,10,0" Click="btnBrowse_Clicked"/>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="1" BorderThickness="0,0,0,1" BorderBrush="Gray">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="图片间隔：" VerticalAlignment="Center" Margin="10,0,0,0" 
+                                       FontSize="12" Foreground="#404040"/>
+                            <TextBox x:Name="txtDistance" Text="200" Width="50" Height="22" Margin="0"
+                                     Background="White" Foreground="#202020" BorderBrush="#BCC2CF"
+                                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                     FontSize="10" MaxLength="5" TextChanged="txtParameter_TextChanged"/>
+                            <TextBlock Text="图片宽度：" VerticalAlignment="Center" Margin="10,0,0,0"
+                                       FontSize="12" Foreground="#404040"/>
+                            <TextBox x:Name="txtWidth" Text="200" Width="50" Height="22" Margin="0"
+                                     Background="White" Foreground="#202020" BorderBrush="#BCC2CF"
+                                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                     FontSize="10" MaxLength="5" TextChanged="txtParameter_TextChanged"/>
+                            <TextBlock Text="图片高度：" VerticalAlignment="Center" Margin="10,0,0,0"
+                                       FontSize="12" Foreground="#404040"/>
+                            <TextBox x:Name="txtHeight" Text="200" Width="50" Height="22" Margin="0"
+                                     Background="White" Foreground="#202020" BorderBrush="#BCC2CF"
+                                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                     FontSize="10" MaxLength="5" TextChanged="txtParameter_TextChanged"/>
+                            <Button Content="自动" Width="60" Height="24"
+                                    VerticalAlignment="Center" FontSize="12"
+                                    Margin="10,0,0,0" Click="btnAuto_Clicked"
+                                    />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="2">
+                    <el:TextureHorizonBrowser x:Name="thb" Margin="5"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" BorderThickness="1" BorderBrush="Gray" 
+                CornerRadius="5" Margin="5" Background="#80FFFFFF">
+            <Grid ClipToBounds="True">
+                <Canvas x:Name="canvas" ClipToBounds="True" Focusable="True" Visibility="Hidden" 
+                        HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image x:Name="imgcontrol" Stretch="None">
+                        <Image.Source>
+                            <DrawingImage>
+                                <DrawingImage.Drawing>
+                                    <DrawingGroup x:Name="group"/>
+                                </DrawingImage.Drawing>
+                            </DrawingImage>
+                        </Image.Source>
+                    </Image>
+                </Canvas>
+                <TextBlock x:Name="txtError" Text="参数错误，无法生成预览图片！" Foreground="Red" FontWeight="Bold"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="16" Visibility="Hidden"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="Gray">
+            <Button Width="120" Height="30" Content="生成图片" FontWeight="Bold"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Margin="0,0,10,0" IsDefault="True" Click="btnGen_Clicked"/>
+        </Border>
+    </Grid>
+</UserControl>
